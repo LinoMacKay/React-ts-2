@@ -4,7 +4,7 @@ const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
 
 export default function useFetch(url:string) {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 

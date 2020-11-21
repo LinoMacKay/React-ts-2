@@ -2,7 +2,13 @@ import React, { useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
 import useFetch from './services/useFetch';
 
-
+interface Product{
+  id:number;
+  image:string;
+  name:string;
+  size:number;
+  price:number;
+}
 
 function Products(){
     const { data: products, loading, error } = useFetch(
@@ -13,7 +19,7 @@ function Products(){
       const [size, setSize] = useState("");
     
     
-      function renderProduct(p:any) {
+      function renderProduct(p:Product) {
         return (
           <div key={p.id} className="product">
         <Link to={`/${category}/${p.id}`}>
@@ -25,8 +31,8 @@ function Products(){
         );
       }
       
-      const filteredProducts = size
-      ? products.filter((p: { skus: any[]; }) => p.skus.find((s) => s.size === parseInt(size)))
+      const filteredProducts:Product[] = size
+      ? products.filter((p: { skus: Product[]; }) => p.skus.find((s) => s.size === parseInt(size)))
       : products;
     
       console.log(products)
@@ -45,9 +51,9 @@ function Products(){
                   <option value="8">8</option>
                   <option value="9">9</option>
                 </select>
-                {size && <h2>Found {filteredProducts.length} items</h2>}
+                {size && <h2>Found {filteredProducts?.length} items</h2>}
               </section>
-              <section id="products">{filteredProducts.map(renderProduct)}</section>
+              <section id="products">{filteredProducts?.map(renderProduct)}</section>
             </main>
         </div>
       );
